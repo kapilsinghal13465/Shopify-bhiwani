@@ -1,0 +1,48 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()" [formGroup]="myForm" class="example-form">
+        <div class="row">
+            <ng-container *ngFor="let item of baseData;let i = index;">
+                <div class="col-md-{{item.col}} col-sm-{{item.colsm}}">
+                    <ng-template [ngIf]="item && item.accept === 'static'">
+                    <span style="top: 20px;position: relative;" *ngIf="item && item.type === 'index'">{{this.storeSlotData.index}}.</span>
+                    <span style="top: 20px;position: relative;" *ngIf="item && item.type === 'item_name'">{{this.storeSlotData.data.selectedItem.name}}</span>
+                    </ng-template>
+                    <ng-template [ngIf]="item && item.accept === 'input'">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>{{item.label}}</mat-label>
+                            <input type="{{item.type}}" matInput formControlName="{{item.key}}"
+                                placeholder="{{item.placeholder}}">
+                            <mat-error *ngIf="myForm.controls[item.key].hasError('required')">
+                                {{item.label}} is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </ng-template>
+                    <ng-template [ngIf]="item && item.accept === 'select'">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>{{item.label}}</mat-label>
+                            <mat-select  formControlName="{{item.key}}" name="itemopt">
+                              <mat-option *ngFor="let itemopt of item.options" [value]="itemopt">
+                                {{itemopt}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </ng-template>
+                    <ng-template [ngIf]="item && item.accept === 'close'">
+                        <span style="top: 20px;
+                        position: relative;">
+                    <a class="format-image-header crossImage float-right" (click)="onRemoveClick(storeSlotData.index)"></a>    
+                    </span>
+                     </ng-template>
+                     <ng-template [ngIf]="item && item.accept === 'info'">
+                        <div style="top: 10px;
+                        position: relative;" class="col-md-{{item.col}} col-sm-{{item.colsm}}">
+                            <button mat-mini-fab color="primary" type="button" (click)="showInfoDialog(item)"
+                                >i</button>
+                        </div>
+                     </ng-template>
+                </div>
+
+            </ng-container>
+        </div>
+    </form>
+</div>

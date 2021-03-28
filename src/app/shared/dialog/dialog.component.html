@@ -1,0 +1,67 @@
+<div class="container">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+        <div class="col-12">
+            <a class="format-image-header crossImage float-right" (click)="onNoClick()"></a>
+        </div>
+    </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card class="card" class="mat-elevation-z8">
+        <mat-card-content>
+            <form (ngSubmit)="onSubmit()" [formGroup]="myForm" class="example-form">
+                <div class="row">
+                    <ng-container *ngFor="let item of baseData">
+                        <div class="col-md-{{item.col}} col-sm-{{item.colsm}}">
+                            <ng-template [ngIf]="item && item.accept === 'input'">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>{{item.label}}</mat-label>
+                                    <input type="{{item.type}}" matInput formControlName="{{item.key}}"
+                                        placeholder="{{item.placeholder}}">
+                                    <mat-error *ngIf="myForm.controls[item.key].hasError('required')">
+                                        {{item.label}} is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </ng-template>
+                            <ng-template [ngIf]="item && item.accept === 'select'">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>{{item.label}}</mat-label>
+                                    <mat-select formControlName="{{item.key}}" name="itemopt">
+                                        <mat-option *ngFor="let itemopt of item.options" [value]="itemopt">
+                                            {{itemopt}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </ng-template>
+
+                            <!-- only for auto complete -->
+                            <ng-template [ngIf]="item && item.accept === 'autocomplete'">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>{{item.label}}</mat-label>
+                                    <input type="{{item.type}}" placeholder="{{item.placeholder}}" matInput
+                                        formControlName="{{item.key}}" [matAutocomplete]="auto">
+                                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptions" [value]="option.name"
+                                            (click)="fillOptionDetails(option)">
+                                            {{option.name}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                                <div *ngFor="let item of storeSlotData; let i = index">
+                                    <app-add-item [storeSlotData]="item" (changeItemIndex)="changeItemIndex($event)"
+                                        (removeItemIndex)="removeItemIndex($event)"></app-add-item>
+                                </div>
+                            </ng-template>
+                            <div *ngIf="item && item.accept === 'submit'" class="row p-l-10 p-b-10 p-t-10">
+                                <div class="col-md-{{item.col}} col-sm-{{item.colsm}}">
+                                    <button mat-raised-button color="primary" type="submit"
+                                        [disabled]="!myForm.valid">{{item.label}}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-container>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

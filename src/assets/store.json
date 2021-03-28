@@ -1,0 +1,5 @@
+[
+    {"add_time": "1610952282654","item_id": "I1610952282654","item_location": "1","name": "Chai","product_unit_type": "Kg","product_weight": "23","purchage_rate": "123","selling_rate": "234"},
+    {"add_time": "1610952282654","item_id": "I1610952282656","item_location": "2","name": "Chasdi","product_unit_type": "Kg","product_weight": "23","purchage_rate": "123","selling_rate": "235"},
+    {"add_time": "1610952282654","item_id": "I1610952282659","item_location": "3","name": "Charri","product_unit_type": "Kg","product_weight": "23","purchage_rate": "123","selling_rate": "123"}
+]

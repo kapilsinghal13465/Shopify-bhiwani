@@ -1,0 +1,11 @@
+<div class="container" style="max-height: 500px; min-width: 500px; padding: 0px !important;">
+    <div class="row">
+        <div class="w-full p-r-20 ">
+        <a class="format-image-header crossImage float-right" (click)="onNoClick()"></a>
+    </div>
+    </div>
+    <div class="row flex-c " *ngFor="let item of itemList">
+        <div class="col-sm-6 col-md-6 m-t-10" style="overflow-wrap: break-word;"><b>{{item.key | keyTotext}}</b></div>
+        <div class="col-sm-6 col-md-6 m-t-10" style="overflow-wrap: break-word;"><b>{{item.value}}</b></div>
+    </div>
+</div>
